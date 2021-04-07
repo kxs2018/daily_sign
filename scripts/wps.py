@@ -561,8 +561,8 @@ def main():
         digest = dio.getvalue()
         if digest[-2:] == "\n\n":
             digest = digest[0:-2]
-        content = content.replace("\n\n", '\n')
-        digest = digest.replace('\n\n', '\n')
+        content = content.replace("\n\n", "\n")
+        digest = digest.replace("\n\n", "\n")
         QYWX_Notify().send('WPS签到信息', digest, content)
         return content
 
