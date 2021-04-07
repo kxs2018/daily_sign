@@ -119,16 +119,16 @@ def login(username, password, appId):
     try:
         result = response.json()
         if result['code'] == '0':
-            cio.write(result['default'][-4:] + '登录成功' + "\n\n")
-            dio.write(result['default'][-4:] + '登录成功' + '\n')
+            cio.write('【'+result['default'][-4:] + '】登录成功' + "\n")
+            dio.write('【'+result['default'][-4:] + '】登录成功' + '\n')
             s.headers.update({
                 'User-Agent': 'Mozilla/5.0 (Linux; Android 10; YAL-AL00 Build/HUAWEIYAL-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36; unicom{version:android@8.0600,desmobile:' + str(
                     username) + '};devicetype{deviceBrand:HUAWEI,deviceModel:YAL-AL00};{yw_code:}'})
         else:
-            cio.write('【登录】: ' + result['dsc'] + "\n\n")
+            cio.write('【登录】: ' + result['dsc'] + "\n")
             dio.write('【登录】: ' + result['dsc'] + '\n')
     except Exception as e:
-        cio.write('【登录】: 发生错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【登录】: 发生错误，原因为: ' + str(e) + "\n")
         dio.write('【登录】: 发生错误，原因为: ' + str(e) + '\n')
     return s
 
@@ -154,9 +154,9 @@ def woTree_task():
             takeFlow.encoding = 'utf-8'
             res1 = takeFlow.json()
             if res1['code'] == '0000':
-                cio.write('【沃之树-领流量】: 4M流量 x' + str(num) + "\n\n")
+                cio.write('【沃之树-领流量】: 4M流量 x' + str(num) + "\n")
             else:
-                cio.write('【沃之树-领流量】: 已领取过 x' + str(num) + "\n\n")
+                cio.write('【沃之树-领流量】: 已领取过 x' + str(num) + "\n")
             # 等待1秒钟
             time.sleep(1)
             num = num + 1
@@ -165,10 +165,10 @@ def woTree_task():
         grow = s.post('https://m.client.10010.com/mactivity/arbordayJson/arbor/3/0/3/grow.htm', verify=False)
         grow.encoding = 'utf-8'
         res2 = grow.json()
-        cio.write('【沃之树-浇水】: 获得' + str(res2['data']['addedValue']) + '培养值' + "\n\n")
+        cio.write('【沃之树-浇水】: 获得' + str(res2['data']['addedValue']) + '培养值' + "\n")
         time.sleep(1)
     except Exception as e:
-        cio.write('【沃之树】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【沃之树】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 经多次测试，都可加倍成功了
@@ -198,14 +198,14 @@ def daySign_task(username):
         doubleAd.encoding = 'utf-8'
         res2 = doubleAd.json()
         if res1['status'] == '0000':
-            cio.write('【每日签到】: ' + '打卡成功,' + res2['data']['statusDesc'] + "\n\n")
+            cio.write('【每日签到】: ' + '打卡成功,' + res2['data']['statusDesc'] + "\n")
             dio.write('【每日签到】: ' + '打卡成功,' + res2['data']['statusDesc'] + '\n')
         elif res1['status'] == '0002':
-            cio.write('【每日签到】: ' + res1['msg'] + "\n\n")
+            cio.write('【每日签到】: ' + res1['msg'] + "\n")
             dio.write('【每日签到】: ' + res1['msg'] + '\n')
         time.sleep(1)
     except Exception as e:
-        cio.write('【每日签到】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【每日签到】: 错误，原因为: ' + str(e) + "\n")
         dio.write('【每日签到】: 错误，原因为: ' + str(e) + '\n')
 
 
@@ -234,11 +234,11 @@ def luckDraw_task():
                 'https://m.client.10010.com/dailylottery/static/doubleball/choujiang?usernumberofjsp=' + numjsp)
             luck.encoding = 'utf-8'
             res = luck.json()
-            cio.write('【天天抽奖】: ' + res['RspMsg'] + ' x' + str(i + 1) + "\n\n")
+            cio.write('【天天抽奖】: ' + res['RspMsg'] + ' x' + str(i + 1) + "\n")
             # 等待1秒钟
             time.sleep(1)
     except Exception as e:
-        cio.write('【天天抽奖】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【天天抽奖】: 错误，原因为: ' + str(e) + "\n")
 
     # 游戏任务中心每日打卡领积分，游戏任务自然数递增至7，游戏频道每日1积分
 
@@ -269,23 +269,23 @@ def gameCenterSign_Task(username):
         gameCenter.encoding = 'utf-8'
         res1 = gameCenter.json()
         if res1['respCode'] == '0000' and res1['respDesc'] == '打卡并奖励成功':
-            cio.write('【游戏中心签到】: ' + '获得' + str(res1['currentIntegral']) + '积分' + "\n\n")
+            cio.write('【游戏中心签到】: ' + '获得' + str(res1['currentIntegral']) + '积分' + "\n")
         elif res1['respCode'] == '0000':
-            cio.write('【游戏中心签到】: ' + res1['respDesc'] + "\n\n")
+            cio.write('【游戏中心签到】: ' + res1['respDesc'] + "\n")
         time.sleep(1)
         # 游戏频道积分
         gameCenter_exp = s.post('https://m.client.10010.com/producGameApp', data=data2, verify=False)
         gameCenter_exp.encoding = 'utf-8'
         res2 = gameCenter_exp.json()
         if res2['code'] == '0000':
-            cio.write('【游戏频道打卡】: 获得' + str(res2['integralNum']) + '积分' + "\n\n")
+            cio.write('【游戏频道打卡】: 获得' + str(res2['integralNum']) + '积分' + "\n")
         else:
-            cio.write('【游戏频道打卡】: ' + res2['msg'] + "\n\n")
+            cio.write('【游戏频道打卡】: ' + res2['msg'] + "\n")
         s.headers.pop('referer')
         s.headers.pop('origin')
         time.sleep(1)
     except Exception as e:
-        cio.write('【游戏中心签到】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【游戏中心签到】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 开宝箱，赢话费任务 100M 流量
@@ -327,14 +327,14 @@ def openBox_task():
         drawReward.encoding = 'utf-8'
         res = drawReward.json()
         if res['code'] == '0000':
-            cio.write('【100M寻宝箱】: ' + '获得100M流量' + "\n\n")
+            cio.write('【100M寻宝箱】: ' + '获得100M流量' + "\n")
         else:
-            cio.write('【100M寻宝箱】: ' + '任务失败' + "\n\n")
+            cio.write('【100M寻宝箱】: ' + '任务失败' + "\n")
         time.sleep(1)
         s.headers.pop('referer')
         s.headers.pop('origin')
     except Exception as e:
-        cio.write('【100M寻宝箱】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【100M寻宝箱】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 领取 4G 流量包任务，看视频、下载软件每日可获得 240M 流量
@@ -351,15 +351,15 @@ def collectFlow_task():
             watchVideo.encoding = 'utf-8'
             res1 = watchVideo.json()
             if res1['reason'] == '00':
-                cio.write('【4G流量包-看视频】: 获得' + res1['addNum'] + 'M流量 x' + str(i + 1) + "\n\n")
+                cio.write('【4G流量包-看视频】: 获得' + res1['addNum'] + 'M流量 x' + str(i + 1) + "\n")
             elif res1['reason'] == '01':
-                cio.write('【4G流量包-看视频】: 已完成' + ' x' + str(i + 1) + "\n\n")
+                cio.write('【4G流量包-看视频】: 已完成' + ' x' + str(i + 1) + "\n")
             else:
                 raise Exception('reason:03')
             # 等待1秒钟
             time.sleep(1)
     except Exception as e:
-        cio.write('【4G流量包】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【4G流量包】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 每日领取100定向积分
@@ -373,10 +373,10 @@ def day100Integral_task():
                           data=data)
         integral.encoding = 'utf-8'
         res = integral.json()
-        cio.write("【100定向积分】: " + res['msg'] + "\n\n")
+        cio.write("【100定向积分】: " + res['msg'] + "\n")
         time.sleep(1)
     except Exception as e:
-        cio.write('【100定向积分】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【100定向积分】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 积分抽奖，可在环境变量中设置抽奖次数，否则每天将只会抽奖一次
@@ -390,7 +390,7 @@ def pointsLottery_task(n):
             'https://m.client.10010.com/dailylottery/static/integral/choujiang?usernumberofjsp=' + numjsp)
         oneFree.encoding = 'utf-8'
         res1 = oneFree.json()
-        cio.write("【积分抽奖】: " + res1['RspMsg'] + ' x免费' + "\n\n")
+        cio.write("【积分抽奖】: " + res1['RspMsg'] + ' x免费' + "\n")
         # 如果用户未设置此值，将不会自动抽奖
         # 预防用户输入30以上，造成不必要的抽奖操作
         num = min(30, int(n))
@@ -403,11 +403,11 @@ def pointsLottery_task(n):
                 'https://m.client.10010.com/dailylottery/static/integral/choujiang?usernumberofjsp=' + numjsp + '&flag=convert')
             payx.encoding = 'utf-8'
             res2 = payx.json()
-            cio.write("【积分抽奖】: " + res2['RspMsg'] + ' x' + str(i + 1) + "\n\n")
+            cio.write("【积分抽奖】: " + res2['RspMsg'] + ' x' + str(i + 1) + "\n")
             # 等待随机秒钟
             time.sleep(1)
     except Exception as e:
-        cio.write('【积分抽奖】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【积分抽奖】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 冬奥积分活动，第1和7天，可领取600定向积分，其余领取300定向积分,有效期至下月底
@@ -434,12 +434,12 @@ def dongaoPoints_task():
             day = int(res2['resdata']['signDays'])
             # 签到得到的积分
             point = trance[day % 7] + 300 if day == 1 else trance[day % 7]
-            cio.write('【东奥积分活动】: ' + res1['resdata']['desc'] + '，' + str(point) + '积分' + "\n\n")
+            cio.write('【东奥积分活动】: ' + res1['resdata']['desc'] + '，' + str(point) + '积分' + "\n")
         else:
-            cio.write('【东奥积分活动】: ' + res1['resdata']['desc'] + '，' + res2['resdata']['desc'] + "\n\n")
+            cio.write('【东奥积分活动】: ' + res1['resdata']['desc'] + '，' + res2['resdata']['desc'] + "\n")
         time.sleep(1)
     except Exception as e:
-        cio.write('【东奥积分活动】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【东奥积分活动】: 错误，原因为: ' + str(e) + "\n")
 
 
 # 获取积分余额
@@ -451,11 +451,11 @@ def getIntegral():
         res = integral.json()
         for r in res['resdata']['data']:
             if r['name'] is not None and r['number'] is not None:
-                cio.write('【' + str(r['name']) + '】: ' + str(r['number']) + "\n\n")
+                cio.write('【' + str(r['name']) + '】: ' + str(r['number']) + "\n")
                 dio.write('【' + str(r['name']) + '】: ' + str(r['number']) + '\n')
         time.sleep(1)
     except Exception as e:
-        cio.write('【积分余额】: 错误，原因为: ' + str(e) + "\n\n")
+        cio.write('【积分余额】: 错误，原因为: ' + str(e) + "\n")
         dio.write('【积分余额】: 错误，原因为: ' + str(e) + '\n')
 
 
@@ -563,13 +563,13 @@ def actionFlow(username):
             res.encoding = 'utf-8'
             res = res.json()
             if res['status'] == '200':
-                cio.write('【即将过期流量包】: ' + '激活成功' + "\n\n")
+                cio.write('【即将过期流量包】: ' + '激活成功' + "\n")
             else:
-                cio.write('【即将过期流量包】: ' + '激活失败' + "\n\n")
+                cio.write('【即将过期流量包】: ' + '激活失败' + "\n")
             time.sleep(8)
         i = i + 1
     if flag:
-        cio.write('【即将过期流量包】: 暂无' + "\n\n")
+        cio.write('【即将过期流量包】: 暂无' + "\n")
 
 
 # 防刷校验
@@ -608,10 +608,10 @@ def check():
         if res['code'] == '9999':
             return True
         else:
-            cio.write('【娱乐中心任务】: 触发防刷，跳过' + "\n\n")
+            cio.write('【娱乐中心任务】: 触发防刷，跳过' + "\n")
             return False
     except:
-        cio.write("【娱乐中心任务】:访问页面出错\n\n")
+        cio.write("【娱乐中心任务】:访问页面出错\n")
         return False
 
 
@@ -629,7 +629,7 @@ def monthOneG(username):
         award = s.post(url, '{}')
         award.encoding = 'utf-8'
         res = award.json()
-        cio.write('【每月领取1G】: ' + res['alertMsg'] + "\n\n")
+        cio.write('【每月领取1G】: ' + res['alertMsg'] + "\n")
 
 
 def main():
