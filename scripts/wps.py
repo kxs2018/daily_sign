@@ -49,7 +49,7 @@ invite_sid = [
 cio = StringIO("WPS签到日志\n\n")
 cio.seek(0, 2)  # 将读写位置移动到结尾
 dio = StringIO()
-s = requests.sescion()
+s = requests.session()
 tz = pytz.timezone('Asia/Shanghai')
 nowtime = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
 cio.write("---" + nowtime + "---\n\n")
