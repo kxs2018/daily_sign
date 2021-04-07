@@ -119,7 +119,7 @@ def main():
                   "\n  境外输入：" + total_input + " ; " + "较昨日：" + today_input + \
                   "\n  无症状感染者：" + total_noSymptom + " ; " + "较昨日：" + today_incrNoSymptom + "\n\n" + content
         digest = f'全国新增确诊病例{today_confirm}' + digest
-        QYWX_Notify().send('疫情通报', digest, content)
+        QYWX_Notify().send('疫情通报', digest.strip(), content)
 
 
 if __name__ == '__main__':
