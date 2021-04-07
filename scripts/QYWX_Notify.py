@@ -44,6 +44,7 @@ class QYWX_Notify:
             "duplicate_check_interval": 1800
         }
         if content is not None:
+            content = '<pre>' + content + '</pre>'
             data["msgtype"] = 'mpnews'
             data["mpnews"] = {
                 "articles": [
