@@ -2,6 +2,7 @@
 import json
 import requests
 import os
+import random
 
 
 class QYWX_Notify:
@@ -10,7 +11,7 @@ class QYWX_Notify:
         self.corpsecret = os.getenv("QYWX_CORPSECRET")
         self.agentid = os.getenv("QYWX_AGENTID")
         self.access_token = self.__get_access_token()
-        self.img_url = 'https://gitee.com/kxs2018/imgbed/raw/master/pic/0.jpg'
+        self.img_url = f'https://gitee.com/kxs2018/imgbed/raw/master/pic/{random.choice([i for i in range(3,24)])}.jpg'
 
     def __get_access_token(self):
         url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken'
