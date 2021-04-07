@@ -1,0 +1,25 @@
+name: Python Pull Request Workflow
+on: [pull_request]
+jobs: 
+  qa:
+    name: Quality check
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+      - name: Run unit tests
+        run: |
+          pip install pytest
+          pytest
+      - name: wemake-python-styleguide
+        uses: wemake-services/wemake-python-styleguide@0.15.2
+
+        continue-on-error: true
+        with:
+          reporter: 'github-pr-review'
+        env:
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
