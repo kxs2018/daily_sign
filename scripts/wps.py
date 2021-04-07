@@ -16,34 +16,32 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning, Insecur
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 requests.packages.urllib3.disable_warnings(InsecurePlatformWarning)
 
-
 invite_sid = [
-{"name": "用户1",
- "sid": "V02S2UBSfNlvEprMOn70qP3jHPDqiZU00a7ef4a800341c7c3b"},
-{"name": "用户2",
- "sid": "V02SWIvKWYijG6Rggo4m0xvDKj1m7ew00a8e26d3002508b828"},
-{"name": "用户3",
- "sid": "V02Sr3nJ9IicoHWfeyQLiXgvrRpje6E00a240b890023270f97"},
-{"name": "用户4",
- "sid": "V02SBsNOf4sJZNFo4jOHdgHg7-2Tn1s00a338776000b669579"},
-{"name": "用户5",
- "sid": "V02S2oI49T-Jp0_zJKZ5U38dIUSIl8Q00aa679530026780e96"},
-{"name": "用户6",
- "sid": "V02ShotJqqiWyubCX0VWTlcbgcHqtSQ00a45564e002678124c"},
-{"name": "用户7",
- "sid": "V02SFiqdXRGnH5oAV2FmDDulZyGDL3M00a61660c0026781be1"},
-{"name": "用户8",
- "sid": "V02S7tldy5ltYcikCzJ8PJQDSy_ElEs00a327c3c0026782526"},
-{"name": "用户9",
- "sid": "V02SPoOluAnWda0dTBYTXpdetS97tyI00a16135e002684bb5c"},
-{"name": "用户10",
- "sid": "V02Sb8gxW2inr6IDYrdHK_ywJnayd6s00ab7472b0026849b17"},
-{"name": "用户11",
- "sid": "V02SwV15KQ_8n6brU98_2kLnnFUDUOw00adf3fda0026934a7f"},
-{"name": "用户12",
- "sid": "V02SC1mOHS0RiUBxeoA8NTliH2h2NGc00a803c35002693584d"}
+    {"name": "用户1",
+     "sid": "V02S2UBSfNlvEprMOn70qP3jHPDqiZU00a7ef4a800341c7c3b"},
+    {"name": "用户2",
+     "sid": "V02SWIvKWYijG6Rggo4m0xvDKj1m7ew00a8e26d3002508b828"},
+    {"name": "用户3",
+     "sid": "V02Sr3nJ9IicoHWfeyQLiXgvrRpje6E00a240b890023270f97"},
+    {"name": "用户4",
+     "sid": "V02SBsNOf4sJZNFo4jOHdgHg7-2Tn1s00a338776000b669579"},
+    {"name": "用户5",
+     "sid": "V02S2oI49T-Jp0_zJKZ5U38dIUSIl8Q00aa679530026780e96"},
+    {"name": "用户6",
+     "sid": "V02ShotJqqiWyubCX0VWTlcbgcHqtSQ00a45564e002678124c"},
+    {"name": "用户7",
+     "sid": "V02SFiqdXRGnH5oAV2FmDDulZyGDL3M00a61660c0026781be1"},
+    {"name": "用户8",
+     "sid": "V02S7tldy5ltYcikCzJ8PJQDSy_ElEs00a327c3c0026782526"},
+    {"name": "用户9",
+     "sid": "V02SPoOluAnWda0dTBYTXpdetS97tyI00a16135e002684bb5c"},
+    {"name": "用户10",
+     "sid": "V02Sb8gxW2inr6IDYrdHK_ywJnayd6s00ab7472b0026849b17"},
+    {"name": "用户11",
+     "sid": "V02SwV15KQ_8n6brU98_2kLnnFUDUOw00adf3fda0026934a7f"},
+    {"name": "用户12",
+     "sid": "V02SC1mOHS0RiUBxeoA8NTliH2h2NGc00a803c35002693584d"}
 ]
-
 
 # 初始化日志
 cio = StringIO("WPS签到日志\n\n")
@@ -165,55 +163,6 @@ def wps_webpage_clockin(sid: str):
                     break
         cio.write("签到结果-->" + sus + "\n\n")
         return 1
-
-
-# wps网页任务提示
-def wps_webpage_taskreward(sid: str):
-    tasklist_url = 'https://vipapi.wps.cn/task_center/task/list'
-    r = s.post(tasklist_url, headers={'sid': sid})
-    if len(r.history) != 0:
-        if r.history[0].status_code == 302:
-            cio.write("任务检查失败: 用户sid错误, 请重新输入\n\n")
-            return 0
-    resp = json.loads(r.text)
-    # 完善账户信息任务检查
-    resplist = ([resp['data']['1']['task'], resp['data']['2']['task'],
-                 resp['data']['3']['task']])
-    statustask = 1
-    for i in range(len(resplist)):
-        checkinformation(resplist[i], sid)
-
-
-# 检查wps网页任务提示信息
-def checkinformation(information, sid):
-    for i in range(len(information)):
-        if information[i]['status'] == 0:
-            fetchMiscion_url = 'https://vipapi.wps.cn/task_center/task/receive_task'
-            r = s.post(fetchMiscion_url, data={'id': information[i]['id']}, headers={'sid': sid})
-            resp = json.loads(r.text)
-            cio.write("任务{} “{}”领取情况: {}\n\n".format(information[i]['id'], information[i]['taskName'], resp['msg']))
-        elif information[i]['status'] == 1:
-            cio.write("任务{} “{}”未完成".format(information[i]['id'], information[i]['taskName']))
-            if len(information[i]['prizes']) > 0:
-                cio.write(",手动完成可获得")
-                for j in range(len(information[i]['prizes'])):
-                    cio.write("{}{}{} ".format(
-                        information[i]['prizes'][j]['name'], information[i]['prizes'][j]['num'],
-                        information[i]['prizes'][j]['size']))
-            cio.write("\n\n")
-        elif information[i]['status'] == 2:
-            cio.write("任务{} “{}”已完成".format(information[i]['id'], information[i]['taskName']))
-            if len(information[i]['prizes']) > 0:
-                cio.write(",可获得")
-                for j in range(len(information[i]['prizes'])):
-                    cio.write("{}{}{} ".format(
-                        information[i]['prizes'][j]['name'], information[i]['prizes'][j]['num'],
-                        information[i]['prizes'][j]['size']))
-            fetchReward_url = 'https://vipapi.wps.cn/task_center/task/receive_reward'
-            s.post(fetchReward_url, data={'id': information[i]['id']}, headers={'sid': sid})
-            cio.write("已自动为您领取奖励\n\n")
-        else:
-            pass
 
 
 # Docer网页签到
@@ -458,8 +407,6 @@ def main():
             taskcenter_url = 'https://vipapi.wps.cn/task_center/task/summary'
             r = s.post(taskcenter_url, headers={'sid': sid})
             resp = json.loads(r.text)
-            if resp['data']['taskNum'] < 12:
-                wps_webpage_taskreward(sid)
             r = s.post(taskcenter_url, headers={'sid': sid})
             resp = json.loads(r.text)
             cio.write("已领取积分: {}\n\n".format(resp['data']['wpsIntegral']))
