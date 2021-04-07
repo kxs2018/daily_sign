@@ -412,6 +412,7 @@ def main():
             cio.write("已领取积分: {}\n\n".format(resp['data']['wpsIntegral']))
             cio.write("已领取会员: {}天\n\n".format(resp['data']['member']))
             cio.write("已完成任务: {}项\n\n".format(resp['data']['taskNum']))
+            cio.write("\n")
         else:
             dio.write("wps网页签到失败\n\n")
             content = cio.getvalue()
