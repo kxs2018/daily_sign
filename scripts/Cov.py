@@ -100,24 +100,24 @@ def main():
                     if p_total_heal == 'None':
                         p_total_heal = '0'
                     digest = f'\n{provice}新增确诊病例{p_today_confirm}'
-                    content = "-" * 32 + "\n\n" + \
-                              "-" * 8 + f"{provice}疫情数据实时统计" + "-" * 8 + "\n\n统计截至时间：" + p_lastUpdateTime + "\n\n" + "-" * 32 + "\n\n" + \
+                    content = "-" * 32 + "\n" + \
+                              "-" * 8 + f"{provice}疫情数据实时统计" + "-" * 8 + "\n统计截至时间：" + p_lastUpdateTime + "\n" + "-" * 32 + "\n" + \
                               "  累计确诊：" + p_total_confirm + " ; " + "较昨日：" + p_today_confirm + \
-                              "\n\n  现有确诊：" + p_total_storeConfirm + " ; " + "较昨日：" + p_today_storeConfirm + \
-                              "\n\n  累计死亡：" + p_total_dead + " ; " + "较昨日：" + p_today_dead + \
-                              "\n\n  累计治愈：" + p_total_heal + " ; " + "较昨日：" + p_today_heal + \
-                              "\n\n  境外输入：" + p_total_input + " ; " + "较昨日：" + p_today_input + \
-                              "\n\n  无症状感染者：" + p_total_noSymptom + " ; " + "较昨日：" + p_today_noSymptom + \
-                              "\n\n  重症患者：" + p_total_severe + " ; " + "较昨日：" + p_today_severe + \
-                              "\n\n  疑似病例：" + p_total_suspect + " ; " + "较昨日：" + p_today_suspect
+                              "\n  现有确诊：" + p_total_storeConfirm + " ; " + "较昨日：" + p_today_storeConfirm + \
+                              "\n  累计死亡：" + p_total_dead + " ; " + "较昨日：" + p_today_dead + \
+                              "\n  累计治愈：" + p_total_heal + " ; " + "较昨日：" + p_today_heal + \
+                              "\n  境外输入：" + p_total_input + " ; " + "较昨日：" + p_today_input + \
+                              "\n  无症状感染者：" + p_total_noSymptom + " ; " + "较昨日：" + p_today_noSymptom + \
+                              "\n  重症患者：" + p_total_severe + " ; " + "较昨日：" + p_today_severe + \
+                              "\n  疑似病例：" + p_total_suspect + " ; " + "较昨日：" + p_today_suspect
 
-        content = "-" * 8 + "全国疫情数据实时统计" + "-" * 8 + "\n\n统计截至时间：" + lastUpdateTime + "\n\n" + "-" * 32 + "\n\n" + \
+        content = "-" * 8 + "全国疫情数据实时统计" + "-" * 8 + "\n统计截至时间：" + lastUpdateTime + "\n" + "-" * 32 + "\n" + \
                   "  累计确诊：" + total_confirm + " ; " + "较昨日：" + today_confirm + \
-                  "\n\n  现有确诊：" + total_storeConfirm + " ; " + "较昨日：" + today_storeConfirm + \
-                  "\n\n  累计死亡：" + total_dead + " ; " + "较昨日：" + today_dead + \
-                  "\n\n  累计治愈：" + total_heal + " ; " + "较昨日：" + today_heal + \
-                  "\n\n  境外输入：" + total_input + " ; " + "较昨日：" + today_input + \
-                  "\n\n  无症状感染者：" + total_noSymptom + " ; " + "较昨日：" + today_incrNoSymptom + "\n\n\n" + content
+                  "\n  现有确诊：" + total_storeConfirm + " ; " + "较昨日：" + today_storeConfirm + \
+                  "\n  累计死亡：" + total_dead + " ; " + "较昨日：" + today_dead + \
+                  "\n  累计治愈：" + total_heal + " ; " + "较昨日：" + today_heal + \
+                  "\n  境外输入：" + total_input + " ; " + "较昨日：" + today_input + \
+                  "\n  无症状感染者：" + total_noSymptom + " ; " + "较昨日：" + today_incrNoSymptom + "\n\n" + content
         digest = f'全国新增确诊病例{today_confirm}' + digest
         QYWX_Notify().send('疫情通报', digest, content)
 
