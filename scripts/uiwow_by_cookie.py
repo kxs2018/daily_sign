@@ -6,7 +6,7 @@ from lxml import etree
 import os
 from QYWX_Notify import QYWX_Notify
 
-sio = StringIO('uiwow签到日志\n\n\n')
+sio = StringIO("uiwow签到日志\n\n")
 dio = StringIO()
 signurl = 'https://www.uiwow.com/plugin.php'
 
@@ -53,10 +53,10 @@ def get_stat(cookie):
     date = sign_div.xpath('.//div[@class="date"]/text()')[0]
     username = html.xpath('//div[@id="um"]//strong/a/text()')[0]
     if '已' not in sign_state:
-        sio.write(username + ' ' + date + ' 的签到状态是:未' + sign_state + '\n\n\n')
+        sio.write(username + ' ' + date + ' 的签到状态是:未' + sign_state + "\n\n")
         dio.write(username + ' ' + date + ' 的签到状态是:未' + sign_state + '\n')
     else:
-        sio.write(username + ' ' + date + ' 的签到状态是:' + sign_state + '\n\n\n')
+        sio.write(username + ' ' + date + ' 的签到状态是:' + sign_state + "\n\n")
         dio.write(username + ' ' + date + ' 的签到状态是:' + sign_state + '\n')
     mytips_data = html.xpath('//div[@class="mytips"]/p')
     for p in mytips_data:
@@ -66,7 +66,7 @@ def get_stat(cookie):
                 sio.write(i.text.strip())
             except:
                 sio.write(i.strip())
-    sio.write('\n')
+    sio.write("\n\n")
 
 
 def main():
@@ -81,7 +81,7 @@ def main():
             signin(cookie)
             get_stat(cookie)
         else:
-            sio.write('cookie错误，请检查cookie格式\n\n\n')
+            sio.write("cookie错误，请检查cookie格式\n\n")
             dio.write('cookie错误，请检查cookie格式\n')
         content = sio.getvalue().strip()
         digest = dio.getvalue()

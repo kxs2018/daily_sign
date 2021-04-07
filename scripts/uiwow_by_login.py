@@ -11,7 +11,7 @@ headers = {
     'host': 'www.uiwow.com',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4437.0 Safari/537.36 Edg/91.0.831.1',
 }
-sio = StringIO('uiwow签到日志\n\n')
+sio = StringIO("uiwow签到日志\n\n")
 dio = StringIO()
 
 
@@ -50,7 +50,7 @@ class Uiwow_Signin:
         if '欢迎您回来' in req:
             return '登录成功'
         else:
-            sio.write(self.username + '\t登录失败\n\n')
+            sio.write(self.username + "\t登录失败\n\n")
             dio.write(self.username + '\t登录失败\n')
 
     def signin(self):
@@ -81,10 +81,10 @@ class Uiwow_Signin:
         sign_state = sign_div.xpath('./a/text()')[0]
         date = sign_div.xpath('.//div[@class="date"]/text()')[0]
         if '已' not in sign_state:
-            sio.write(self.username + ' ' + date + ' 的签到状态是:未' + sign_state + '\n\n')
+            sio.write(self.username + ' ' + date + ' 的签到状态是:未' + sign_state + "\n\n")
             dio.write(self.username + ' ' + date + ' 的签到状态是:未' + sign_state + '\n')
         else:
-            sio.write(self.username + ' ' + date + ' 的签到状态是:' + sign_state + '\n\n')
+            sio.write(self.username + ' ' + date + ' 的签到状态是:' + sign_state + "\n\n")
             dio.write(self.username + ' ' + date + ' 的签到状态是:' + sign_state + '\n')
         mytips_data = html.xpath('//div[@class="mytips"]/p')
         for p in mytips_data:
@@ -94,7 +94,7 @@ class Uiwow_Signin:
                     sio.write(i.text.strip())
                 except:
                     sio.write(i.strip())
-        sio.write('\n')
+        sio.write("\n\n")
 
     def start(self):
         self.login()
@@ -109,7 +109,7 @@ def main():
         username = username.split('&')
         psw = psw.split('&')
         if len(username) != len(psw):
-            sio.write('签到失败，用户名和密码数量不等\n\n\n')
+            sio.write("签到失败，用户名和密码数量不等\n\n")
             dio.write('签到失败，用户名和密码数量不等\n')
             return
         else:

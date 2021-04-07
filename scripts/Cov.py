@@ -100,7 +100,7 @@ def main():
                     if p_total_heal == 'None':
                         p_total_heal = '0'
                     digest = f'\n{provice}新增确诊病例{p_today_confirm}'
-                    content = "-" * 32 + "\n\n\n" + \
+                    content = "-" * 32 + "\n\n" + \
                               "-" * 8 + f"{provice}疫情数据实时统计" + "-" * 8 + "\n\n统计截至时间：" + p_lastUpdateTime + "\n\n" + "-" * 32 + "\n\n" + \
                               "  累计确诊：" + p_total_confirm + " ; " + "较昨日：" + p_today_confirm + \
                               "\n\n  现有确诊：" + p_total_storeConfirm + " ; " + "较昨日：" + p_today_storeConfirm + \
@@ -111,7 +111,7 @@ def main():
                               "\n\n  重症患者：" + p_total_severe + " ; " + "较昨日：" + p_today_severe + \
                               "\n\n  疑似病例：" + p_total_suspect + " ; " + "较昨日：" + p_today_suspect
 
-        content = "-" * 8 + "全国疫情数据实时统计" + "-" * 8 + "\n\n\n统计截至时间：" + lastUpdateTime + "\n\n" + "-" * 32 + "\n\n" + \
+        content = "-" * 8 + "全国疫情数据实时统计" + "-" * 8 + "\n\n统计截至时间：" + lastUpdateTime + "\n\n" + "-" * 32 + "\n\n" + \
                   "  累计确诊：" + total_confirm + " ; " + "较昨日：" + today_confirm + \
                   "\n\n  现有确诊：" + total_storeConfirm + " ; " + "较昨日：" + today_storeConfirm + \
                   "\n\n  累计死亡：" + total_dead + " ; " + "较昨日：" + today_dead + \
