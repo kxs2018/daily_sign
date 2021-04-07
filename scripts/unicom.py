@@ -119,8 +119,8 @@ def login(username, password, appId):
     try:
         result = response.json()
         if result['code'] == '0':
-            cio.write('【'+result['default'][-4:] + '】登录成功' + "\n")
-            dio.write('【'+result['default'][-4:] + '】登录成功' + '\n')
+            cio.write('【'+result['default'][-4:] + '】：登录成功' + "\n")
+            dio.write('【'+result['default'][-4:] + '】：登录成功' + '\n')
             s.headers.update({
                 'User-Agent': 'Mozilla/5.0 (Linux; Android 10; YAL-AL00 Build/HUAWEIYAL-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36; unicom{version:android@8.0600,desmobile:' + str(
                     username) + '};devicetype{deviceBrand:HUAWEI,deviceModel:YAL-AL00};{yw_code:}'})
@@ -655,7 +655,7 @@ def main():
             actionFlow(user['username'])
             monthOneG(user['username'])
         content = cio.getvalue()
-        digest = dio.getvalue()
+        digest = dio.getvalue().strip()
         QYWX_Notify().send('联通APP签到信息', digest, content)
 
 
