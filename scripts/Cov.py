@@ -100,7 +100,7 @@ def main():
                     if p_total_heal == 'None':
                         p_total_heal = '0'
                     digest = f'\n{provice}新增确诊病例{p_today_confirm}'
-                    content = "\n" +"-" * 41 + "\n" + \
+                    content = "-" * 41 + "\n\n" + \
                               "-" * 8 + f"{provice}疫情数据实时统计" + "-" * 8 + "\n统计截至时间：" + p_lastUpdateTime + "\n" + "-" * 41 + "\n" + \
                               "  累计确诊：" + p_total_confirm + " ; " + "较昨日：" + p_today_confirm + \
                               "\n  现有确诊：" + p_total_storeConfirm + " ; " + "较昨日：" + p_today_storeConfirm + \
@@ -117,7 +117,7 @@ def main():
                   "\n  累计死亡：" + total_dead + " ; " + "较昨日：" + today_dead + \
                   "\n  累计治愈：" + total_heal + " ; " + "较昨日：" + today_heal + \
                   "\n  境外输入：" + total_input + " ; " + "较昨日：" + today_input + \
-                  "\n  无症状感染者：" + total_noSymptom + " ; " + "较昨日：" + today_incrNoSymptom + "\n\n" + content
+                  "\n  无症状感染者：" + total_noSymptom + " ; " + "较昨日：" + today_incrNoSymptom + "\n" + content
         digest = f'全国新增确诊病例{today_confirm}' + digest
         QYWX_Notify().send('疫情通报', digest.strip(), content)
 
