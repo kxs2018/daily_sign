@@ -11,7 +11,6 @@ class QYWX_Notify:
         self.corpsecret = os.getenv("QYWX_CORPSECRET")
         self.agentid = os.getenv("QYWX_AGENTID")
         self.access_token = self.__get_access_token()
-        self.img_url = f'https://gitee.com/kxs2018/imgbed/raw/master/pic/{random.randint(3,24)}.jpg'
 
     def __get_access_token(self):
         url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken'
@@ -27,10 +26,9 @@ class QYWX_Notify:
         else:
             raise Exception('Please check if corpid and corpsecret are correct \n' + resp.text)
 
-    def get_ShortTimeMedia(self):
+    def get_ShortTimeMedia(self, img_url):
         media_url = f'https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={self.access_token}&type=file'
-
-        f = requests.get(self.img_url).content
+        f = requests.get(img_url).content
         r = requests.post(media_url, files={'file': f}, json=True)
         return json.loads(r.text)['media_id']
 
@@ -45,13 +43,14 @@ class QYWX_Notify:
             "duplicate_check_interval": 1800
         }
         if content is not None:
+            img_url = f'https://gitee.com/kxs2018/imgbed/raw/master/pic/{random.randint(3, 24)}.jpg'
             content = '<pre>' + content + '</pre>'
             data["msgtype"] = 'mpnews'
             data["mpnews"] = {
                 "articles": [
                     {
                         "title": title,
-                        "thumb_media_id": self.get_ShortTimeMedia(),
+                        "thumb_media_id": self.get_ShortTimeMedia(img_url),
                         "author": "",
                         "content_source_url": "",
                         "content": content,

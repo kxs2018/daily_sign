@@ -42,7 +42,7 @@ def requests_session(
 # 默认不自动提现
 autoTakeOut = False
 # 提现金额
-amount = 20
+amount = 19
 takeOutType = 1
 # 提现账户: 1 -> 支付宝 2 -> 微信
 thirdPayType = 1
@@ -55,7 +55,7 @@ if xmly_speed_cookie:
         if not line:
             continue
         cookiesList.append(line)
-autoTakeOut = os.environ["AUTO_TAKE_OUT"]
+autoTakeOut = os.getenv("AUTO_TAKE_OUT")
 
 if autoTakeOut:
     print("自动提现已启用")
