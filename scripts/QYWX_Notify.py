@@ -43,7 +43,7 @@ class QYWX_Notify:
             "duplicate_check_interval": 1800
         }
         if content is not None:
-            img_url = f'https://gitee.com/kxs2018/imgbed/raw/master/pic/{random.randint(3, 24)}.jpg'
+            img_url = f'https://gitee.com/kxs2018/imgbed/raw/master/pic/{random.randint(3, 14)}.jpg'
             content = '<pre>' + content + '</pre>'
             data["msgtype"] = 'mpnews'
             data["mpnews"] = {
