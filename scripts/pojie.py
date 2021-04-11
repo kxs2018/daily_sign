@@ -4,6 +4,7 @@ import requests
 from pyquery import PyQuery as pq
 import os
 from QYWX_Notify import QYWX_Notify
+import time
 
 
 def pojie_signin():
@@ -14,6 +15,7 @@ def pojie_signin():
         headers = {'cookie': pj_cookie,
                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4265.0 Safari/537.36 Edg/87.0.644.4'}
         requests.get(url1, headers=headers)
+        time.sleep(1)
         req = requests.get(url2, headers=headers).text
         doc = pq(req)
         msg = doc('#messagetext p').text()

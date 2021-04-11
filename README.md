@@ -54,7 +54,7 @@
 
 1. 浏览器登录网站——按F12打开开发人员工具——NETWORK拉动右边的滚动条到最顶部，点击最上面的选项（如下图）
 
-[![img](https://camo.githubusercontent.com/9a789c22c5051d1d8b66fa5496a90e86df80bf57a7ef94759eef403768fb4b69/68747470733a2f2f67697465652e636f6d2f6b7873323031382f696d676265642f7261772f6d61737465722f7069632f676574636f6f6b69652e6a7067)](https://camo.githubusercontent.com/9a789c22c5051d1d8b66fa5496a90e86df80bf57a7ef94759eef403768fb4b69/68747470733a2f2f67697465652e636f6d2f6b7873323031382f696d676265642f7261772f6d61737465722f7069632f676574636f6f6b69652e6a7067)
+[![](https://gitee.com/kxs2018/imgbed/raw/master/pic/getcookie.jpg)
 
 1. 上面复制好的cookie先保存到本地，然后复制相应的代码到浏览器开发人员工具的console里，再把cookie复制粘帖到代码里并按enter，所需要的cookie就复制到剪切板了，粘帖到本地备用即可。
 
@@ -65,4 +65,4 @@
    copy(CookieValue);
    ```
 
-[各网站cookie转换代码](https://github.com/kxs2018/daily_signin/blob/main/cookie.md)
+[各网站cookie转换代码](https://github.com/kxs2018/daily_sign/blob/main/cookie.md)
