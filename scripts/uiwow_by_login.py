@@ -75,7 +75,7 @@ class Uiwow_Signin:
 
     def get_stat(self):
         state_url = 'http://www.uiwow.com/plugin.php?id=dc_signin&action=index'
-        res = self.s.get(state_url, headers=headers)
+        res = self.s.get(state_url, headers=headers, cookies=self.s.cookies.get_dict())
         html = etree.HTML(res.text)
         sign_div = html.xpath('//*[@class="sign_div"]')[0]
         sign_state = sign_div.xpath('./a/text()')[0]
