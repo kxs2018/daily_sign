@@ -27,7 +27,7 @@ class Uiwow_Signin:
     def login(self):
         params = {"mod": "logging",
                   "action": "login"}
-        req = self.s.get(self.url, params=params, headers=headers).content.decode('utf-8')
+        req = self.s.get(self.url, params=params, headers=headers, verify=False).content.decode('utf-8')
         loginhash = re.findall(r'loginhash=(.*)?"', req)
         loginhash = loginhash[0]
         formhash = re.findall(r'name="formhash" value="(.*)?"', req)[0]
@@ -47,7 +47,7 @@ class Uiwow_Signin:
             'password': self.psw,
             'questionid': 0
         }
-        req = self.s.post(self.url, params=params, data=data, headers=headers).content.decode('utf-8')
+        req = self.s.post(self.url, params=params, data=data, headers=headers, verify=False).content.decode('utf-8')
         if '欢迎您回来' in req:
             return '登录成功'
         else:
@@ -60,7 +60,7 @@ class Uiwow_Signin:
             'inajax': 1
         }
         try:
-            req = self.s.get(self.signurl, params=params, headers=headers).content.decode('utf-8')
+            req = self.s.get(self.signurl, params=params, headers=headers, verify=False).content.decode('utf-8')
         except:
             return
         formhash = re.findall(r'name="formhash" value="(.*)?"', req)[0]
@@ -72,11 +72,11 @@ class Uiwow_Signin:
                   'emotid': 1,
                   'referer': 'https://www.uiwow.com/forum.php',
                   'content': '开森的我开森的签到一下！'}
-        self.s.post(self.signurl, params=params, headers=headers)
+        self.s.post(self.signurl, params=params, headers=headers, verify=False)
 
     def get_stat(self):
         state_url = 'http://www.uiwow.com/plugin.php?id=dc_signin&action=index'
-        res = self.s.get(state_url, headers=headers, cookies=self.s.cookies.get_dict())
+        res = self.s.get(state_url, headers=headers, cookies=self.s.cookies.get_dict(), verify=False)
         html = etree.HTML(res.text)
         sign_div = html.xpath('//*[@class="sign_div"]')[0]
         sign_state = sign_div.xpath('./a/text()')[0]
