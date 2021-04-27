@@ -6,6 +6,7 @@ from lxml import etree
 import os
 from QYWX_Notify import QYWX_Notify
 
+requests.packages.urllib3.disable_warnings()
 sio = StringIO("uiwow签到日志\n\n")
 dio = StringIO()
 signurl = 'https://www.uiwow.com/plugin.php'
