@@ -7,6 +7,7 @@ import time
 import os
 from QYWX_Notify import QYWX_Notify
 
+requests.packages.urllib3.disable_warnings()
 headers = {
     'host': 'www.uiwow.com',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4437.0 Safari/537.36 Edg/91.0.831.1',
