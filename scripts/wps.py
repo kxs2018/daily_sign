@@ -17,30 +17,20 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 requests.packages.urllib3.disable_warnings(InsecurePlatformWarning)
 
 invite_sid = [
-    {"name": "用户1",
-     "sid": "V02S2UBSfNlvEprMOn70qP3jHPDqiZU00a7ef4a800341c7c3b"},
-    {"name": "用户2",
-     "sid": "V02SWIvKWYijG6Rggo4m0xvDKj1m7ew00a8e26d3002508b828"},
-    {"name": "用户3",
-     "sid": "V02Sr3nJ9IicoHWfeyQLiXgvrRpje6E00a240b890023270f97"},
-    {"name": "用户4",
-     "sid": "V02SBsNOf4sJZNFo4jOHdgHg7-2Tn1s00a338776000b669579"},
-    {"name": "用户5",
-     "sid": "V02S2oI49T-Jp0_zJKZ5U38dIUSIl8Q00aa679530026780e96"},
-    {"name": "用户6",
-     "sid": "V02ShotJqqiWyubCX0VWTlcbgcHqtSQ00a45564e002678124c"},
-    {"name": "用户7",
-     "sid": "V02SFiqdXRGnH5oAV2FmDDulZyGDL3M00a61660c0026781be1"},
-    {"name": "用户8",
-     "sid": "V02S7tldy5ltYcikCzJ8PJQDSy_ElEs00a327c3c0026782526"},
-    {"name": "用户9",
-     "sid": "V02SPoOluAnWda0dTBYTXpdetS97tyI00a16135e002684bb5c"},
-    {"name": "用户10",
-     "sid": "V02Sb8gxW2inr6IDYrdHK_ywJnayd6s00ab7472b0026849b17"},
-    {"name": "用户11",
-     "sid": "V02SwV15KQ_8n6brU98_2kLnnFUDUOw00adf3fda0026934a7f"},
-    {"name": "用户12",
-     "sid": "V02SC1mOHS0RiUBxeoA8NTliH2h2NGc00a803c35002693584d"}
+    "V02StVuaNcoKrZ3BuvJQ1FcFS_xnG2k00af250d4002664c02f",
+    "V02SWIvKWYijG6Rggo4m0xvDKj1m7ew00a8e26d3002508b828",
+    "V02Sr3nJ9IicoHWfeyQLiXgvrRpje6E00a240b890023270f97",
+    "V02SBsNOf4sJZNFo4jOHdgHg7-2Tn1s00a338776000b669579",
+    "V02ScVbtm2pQD49ArcgGLv360iqQFLs014c8062e000b6c37b6",
+    "V02S2oI49T-Jp0_zJKZ5U38dIUSIl8Q00aa679530026780e96",
+    "V02ShotJqqiWyubCX0VWTlcbgcHqtSQ00a45564e002678124c",
+    "V02SFiqdXRGnH5oAV2FmDDulZyGDL3M00a61660c0026781be1",
+    "V02S7tldy5ltYcikCzJ8PJQDSy_ElEs00a327c3c0026782526",
+    "V02SPoOluAnWda0dTBYTXpdetS97tyI00a16135e002684bb5c",
+    "V02Sb8gxW2inr6IDYrdHK_ywJnayd6s00ab7472b0026849b17",
+    "V02SwV15KQ_8n6brU98_2kLnnFUDUOw00adf3fda0026934a7f",
+    "V02SC1mOHS0RiUBxeoA8NTliH2h2NGc00a803c35002693584d"
+
 ]
 
 # 初始化日志
@@ -50,6 +40,8 @@ dio = StringIO()
 s = requests.session()
 tz = pytz.timezone('Asia/Shanghai')
 nowtime = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+signtime = datetime.datetime.now(tz).strftime("%H %M")
+notifytime = [8, 19]
 cio.write("---" + nowtime + "---\n\n")
 
 
@@ -371,29 +363,28 @@ def wps_miniprogram_clockin(sid: str):
 def wps_miniprogram_invite(invite_sid: list, invite_userid: int) -> None:
     invite_url = 'http://zt.wps.cn/2018/clock_in/api/invite'
     k = 0
-    for index in range(len(invite_sid)):
-        if k < 10:
-            headers = {
-                'sid': invite_sid[index]['sid']
-            }
-            time.sleep(2 + random.random())
-            r = s.post(invite_url, headers=headers, data={
-                'invite_userid': invite_userid})
-            if r.status_code == 200:
-                try:
-                    resp = json.loads(r.text)
-                    if resp['result'] == 'ok':
-                        k += 1
-                    else:
-                        cio.write("邀请对象: {}, Result: {}\n\n".format(invite_sid[index]['name'], resp['msg']))
-                except:
-                    cio.write("邀请对象: {}, Result: ID已失效\n\n".format(invite_sid[index]['name']))
-            else:
-                cio.write(
-                    "邀请对象: {}, 状态码: {},\n\n 请求信息{}\n\n".format(invite_sid[index]['name'], r.status_code, r.text[:25]))
+    for index, i in enumerate(invite_sid):
+
+        headers = {
+            'sid': i
+        }
+        time.sleep(2 + random.random())
+        r = s.post(invite_url, headers=headers, data={
+            'invite_userid': invite_userid,
+            "client_code": "040ce6c23213494c8de9653e0074YX30",
+            "client": "alipay"})
+        if r.status_code == 200:
+            try:
+                resp = json.loads(r.text)
+                if resp['result'] == 'ok':
+                    k += 1
+                else:
+                    cio.write("邀请对象: {}, Result: {}\n\n".format(invite_sid[i], resp['msg']))
+            except:
+                cio.write("邀请对象: {}, Result: ID已失效\n\n".format(invite_sid[i]))
         else:
-            break
-    return k
+            cio.write("邀请对象: {}, 状态码: {},\n\n 请求信息{}\n\n".format(invite_sid[i], r.status_code, r.text[:25]))
+        return k
 
 
 # 主函数
@@ -504,15 +495,14 @@ def main():
                                                           datetime.datetime.fromtimestamp(
                                                               resp['data']['vip']['enabled'][i][
                                                                   'expire_time']).strftime("%Y/%m/%d")))
-
-        content = cio.getvalue()
-        digest = dio.getvalue()
-        if digest[-2:] == "\n\n":
-            digest = digest[0:-2]
-        content = content.replace("\n\n", "\n")
-        digest = digest.replace("\n\n", "\n")
-        QYWX_Notify().send('WPS签到信息', digest, content)
-        return content
+        if int(signtime.split()[0]) in notifytime and int(signtime.split()[1]) <= 30:
+            content = cio.getvalue()
+            digest = dio.getvalue()
+            if digest[-2:] == "\n\n":
+                digest = digest[0:-2]
+            content = content.replace("\n\n", "\n")
+            digest = digest.replace("\n\n", "\n")
+            QYWX_Notify().send('WPS签到信息', digest, content)
 
 
 if __name__ == '__main__':
