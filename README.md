@@ -56,15 +56,15 @@
 
 1. 浏览器登录网站——按F12打开开发人员工具——NETWORK拉动右边的滚动条到最顶部，点击最上面的选项（如下图）
 
-[![](https://gitee.com/kxs2018/imgbed/raw/master/pic/getcookie.jpg)
+![](https://gitee.com/kxs2018/imgbed/raw/master/pic/getcookie.jpg)
 
-1. 上面复制好的cookie先保存到本地，然后复制相应的代码到浏览器开发人员工具的console里，再把cookie复制粘帖到代码里并按enter，所需要的cookie就复制到剪切板了，粘帖到本地备用即可。
+2. 上面复制好的cookie先保存到本地，然后复制相应的代码到浏览器开发人员工具的console里，再把cookie复制粘帖到代码里并按enter，所需要的cookie就复制到剪切板了，粘帖到本地备用即可。
 
-   ```
-   # 吾爱破解cookie转换代码（这行不用复制）
-   var CV = '单引号里面放前面拿到的cookie';
-   var CookieValue = CV.match(/htVD_2132_auth=.+?;/) + CV.match(/htVD_2132_saltkey=.+?;/);
-   copy(CookieValue);
-   ```
+```
+# 吾爱破解cookie转换代码（这行不用复制）
+var CV = '单引号里面放前面拿到的cookie';
+var CookieValue = CV.match(/htVD_2132_auth=.+?;/) + CV.match(/htVD_2132_saltkey=.+?;/);
+copy(CookieValue);
+```
 
 [各网站cookie转换代码](https://github.com/kxs2018/daily_sign/blob/main/cookie.md)
