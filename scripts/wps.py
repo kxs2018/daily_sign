@@ -495,7 +495,7 @@ def main():
                                                           datetime.datetime.fromtimestamp(
                                                               resp['data']['vip']['enabled'][i][
                                                                   'expire_time']).strftime("%Y/%m/%d")))
-        if int(signtime.split()[0]) in notifytime and int(signtime.split()[1]) <= 30:
+        if int(signtime.split()[0]) in notifytime:
             content = cio.getvalue()
             digest = dio.getvalue()
             if digest[-2:] == "\n\n":
