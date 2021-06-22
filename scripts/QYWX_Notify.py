@@ -13,8 +13,9 @@ class QYWX_Notify:
         self.agentid = os.getenv("QYWX_TUPIAN")
         self.access_token = self.__get_access_token()
 
+            
     def __get_access_token(self):
-        url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken'
+        url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken        '
         params = {
             'corpid': self.corpid,
             'corpsecret': self.corpsecret
@@ -70,22 +71,17 @@ class QYWX_Notify:
         resp.raise_for_status()
         return resp.json()
 
-        self.corpid = os.getenv("QYWX_CORPID")
-        self.corpsecret = os.getenv("QYWX_CORPSECRET")
-        self.agentid = os.getenv("QYWX_TOUSER")
-        self.agentid = os.getenv("QYWX_AGENTID")
-        self.agentid = os.getenv("QYWX_TUPIAN")
-        self.access_token = self.__get_access_token()
+  
       
 function qywxamNotify(text, desp) {
   return new Promise(resolve => {
     if (QYWX_CORPID) {
 #      const QYWX_AM_AY = QYWX_AM.split(',');
-      const options_accesstoken = {
+       const options_accesstoken = {
         url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken`,
         json: {
-          corpid: `${QYWX_CORPID}`,
-          corpsecret: `${QYWX_CORPSECRET}`,
+          corpid: self.corpid,
+          corpsecret: self.corpsecret
         },
         headers: {
           'Content-Type': 'application/json',
