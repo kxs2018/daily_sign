@@ -4,6 +4,114 @@ import requests
 import os
 import random
 
+function qywxamNotify(text, desp) {
+  return new Promise(resolve => {
+    if (QYWX_AM) {
+      const QYWX_AM_AY = QYWX_AM.split(',');
+      const options_accesstoken = {
+        url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken`,
+        json: {
+          corpid: `${QYWX_AM_AY[0]}`,
+          corpsecret: `${QYWX_AM_AY[1]}`,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout
+      };
+      $.post(options_accesstoken, (err, resp, data) => {
+        html = desp.replace(/\n/g, "<br/>")
+        var json = JSON.parse(data);
+        accesstoken = json.access_token;
+        let options;
+
+        switch (QYWX_AM_AY[4]) {
+          case '0':
+            options = {
+              msgtype: 'textcard',
+              textcard: {
+                title: `${text}`,
+                description: `${desp}`,
+                url: 'https://github.com/lxk0301/jd_scripts',
+                btntxt: '更多'
+              }
+            }
+            break;
+
+          case '1':
+            options = {
+              msgtype: 'text',
+              text: {
+                content: `${text}\n\n${desp}`
+              }
+            }
+            break;
+
+          default:
+            options = {
+              msgtype: 'mpnews',
+              mpnews: {
+                articles: [
+                  {
+                    title: `${text}`,
+                    thumb_media_id: `${QYWX_AM_AY[4]}`,
+                    author: `智能助手`,
+                    content_source_url: ``,
+                    content: `${html}`,
+                    digest: `${desp}`
+                  }
+                ]
+              }
+            }
+        };
+        if (!QYWX_AM_AY[4]) {
+          //如不提供第四个参数,则默认进行文本消息类型推送
+          options = {
+            msgtype: 'text',
+            text: {
+              content: `${text}\n\n${desp}`
+            }
+          }
+        }
+        options = {
+          url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accesstoken}`,
+          json: {
+            touser: `${ChangeUserId(desp)}`,
+            agentid: `${QYWX_AM_AY[3]}`,
+            safe: '0',
+            ...options
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+
+        $.post(options, (err, resp, data) => {
+          try {
+            if (err) {
+              console.log('成员ID:' + ChangeUserId(desp) + '企业微信应用消息发送通知消息失败！！\n');
+              console.log(err);
+            } else {
+              data = JSON.parse(data);
+              if (data.errcode === 0) {
+                console.log('成员ID:' + ChangeUserId(desp) + '企业微信应用消息发送通知消息成功🎉。\n');
+              } else {
+                console.log(`${data.errmsg}\n`);
+              }
+            }
+          } catch (e) {
+            $.logErr(e, resp);
+          } finally {
+            resolve(data);
+          }
+        });
+      });
+    } else {
+      console.log('您未提供企业微信应用消息推送所需的QYWX_AM，取消企业微信应用消息推送消息通知🚫\n');
+      resolve();
+    }
+  });
+}
 
 class QYWX_Notify:
     def __init__(self):
