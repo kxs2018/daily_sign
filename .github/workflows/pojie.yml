@@ -24,7 +24,7 @@ jobs:
       run:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: 签到
+    - name: 吾爱破解签到
       run: |
         python3 ./scripts/pojie.py
       env:
