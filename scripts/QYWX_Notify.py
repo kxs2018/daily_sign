@@ -73,7 +73,7 @@ class QYWX_Notify:
 
   
       
-function qywxamNotify(text, desp) {
+## function qywxamNotify(text, desp) {
   return new Promise(resolve => {
     if (QYWX_CORPID) {
 #      const QYWX_AM_AY = QYWX_AM.split(',');
