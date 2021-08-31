@@ -6,6 +6,7 @@ from lxml import etree
 import os
 from QYWX_Notify import QYWX_Notify
 
+requests.packages.urllib3.disable_warnings()
 sio = StringIO("uiwow签到日志\n\n")
 dio = StringIO()
 signurl = 'https://www.uiwow.com/plugin.php'
@@ -22,7 +23,7 @@ def get_hash(cookie):
         'inajax': 1
     }
     try:
-        req = requests.get(signurl, cookies=cookie, headers=headers, params=params).content.decode('utf-8')
+        req = requests.get(signurl, cookies=cookie, headers=headers, params=params, verify=False).content.decode('utf-8')
         formhash = re.findall(r'name="formhash" value="(.*)?"', req)[0]
         return formhash
     except:
@@ -40,13 +41,13 @@ def signin(cookie):
                   'emotid': 1,
                   'referer': 'https://www.uiwow.com/forum.php',
                   'content': '开森的我开森的签到一下！'}
-        requests.post(signurl, params=params, headers=headers, cookies=cookie)
+        requests.post(signurl, params=params, headers=headers, cookies=cookie, verify=False)
     return
 
 
 def get_stat(cookie):
     stat_url = 'http://www.uiwow.com/plugin.php?id=dc_signin&action=index'
-    res = requests.get(stat_url, headers=headers, cookies=cookie)
+    res = requests.get(stat_url, headers=headers, cookies=cookie, verify=False)
     html = etree.HTML(res.text)
     sign_div = html.xpath('//*[@class="sign_div"]')[0]
     sign_state = sign_div.xpath('./a/text()')[0]
