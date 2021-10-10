@@ -26,7 +26,7 @@ jobs:
         pip install -r requirements.txt
     - name: 签到
       run: |
-        python3 ./scripts/FCWY.py
+        python3 ./scripts/fcwy.py
       env:
         QYWX_CORPID: ${{ secrets.QYWX_CORPID }}
         QYWX_CORPSECRET: ${{ secrets.QYWX_CORPSECRET }}
