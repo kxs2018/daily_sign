@@ -1,4 +1,4 @@
-name: csdn签到
+name: fcwy签到
 on:
   push:
     branches: [ master ]
