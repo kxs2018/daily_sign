@@ -34,3 +34,4 @@ if m:
 else:
     msg = username + ' 签到失败'
 QYWX_Notify().send('蜂巢物业论坛签到信息', msg)
+print(msg)
