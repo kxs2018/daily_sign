@@ -1,13 +1,8 @@
 # daily_sign 日常签到
 
-
 ### **最近更新**
 
-2021.5.4  更新wps签到，每半小时执行一次，每天8:00-8:30 19:00-19:30通知一次
-
-2021.4.27 uiwow网站似乎不稳定，暂停签到
-
-
+2021.11.7 增加和彩云网盘签到
 
 ### **通知示例**
 
@@ -36,6 +31,7 @@
 | 联通APP                                      | 是     | 列表套字典 [{"username": "手机号", "password": "服务密码", "appId": "appid"}] |
 | 新冠疫情通报                                 |        | JUDGE填入任意字符通报，不添加secret不通报；PROVINCE填入需要通报的省市区（包括34个省/直辖市/自治区/特别行政区） |
 | 喜马拉雅极速版                               | 是     | 手机抓包cookie，多账号换行即可                               |
+| 和彩云网盘                                   | 否     | 微信小程序抓包，获取cookie和referer                          |
 
 注：
 
@@ -66,5 +62,21 @@ var CV = '单引号里面放前面拿到的cookie';
 var CookieValue = CV.match(/htVD_2132_auth=.+?;/) + CV.match(/htVD_2132_saltkey=.+?;/);
 copy(CookieValue);
 ```
+
+#### 和彩云获取cookie和referer（电脑抓包）
+
+1. 打开fiddler等抓包工具
+
+2. 微信电脑端打开和彩云网盘小程序，进入我的页面，点击签到
+
+   
+
+   ![签到](https://gitee.com/kxs2018/imgbed/raw/master/pic/%E7%AD%BE%E5%88%B0.png)
+
+   3. 进入抓包工具复制cookie和referer
+
+      ![](https://gitee.com/kxs2018/imgbed/raw/master/pic/%E8%8E%B7%E5%8F%96cookie.png)
+
+      注：cookie有部分值含有双引号，在每一个双引号前加反斜杠（\）转义，再粘帖到secrets里
 
 [各网站cookie转换代码](https://github.com/kxs2018/daily_sign/blob/main/cookie.md)

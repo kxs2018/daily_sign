@@ -31,6 +31,8 @@
 | JUDGE                    |          疫情通报           |            填入任意字符通报，不添加此secret不通报            |
 | PROVINCE                 |          疫情通报           | 填入单个省市区名字通报全国和指定省市区疫情情况，否则只通报全国信息 |
 | XMLY_SPEED_COOKIE        |      喜马拉雅极速版APP      |               手机抓包极速版cookie，多账号换行               |
+| HCY_COOKIE               |         和彩云网盘          |                            cookie                            |
+| HCY_REFERER              |         和彩云网盘          |                           referer                            |
 
 
 
