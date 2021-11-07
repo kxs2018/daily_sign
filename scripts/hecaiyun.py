@@ -68,11 +68,11 @@ def main():
 
     resp = json.loads(requests.post(target, headers=headers, data=payload).text)
     if resp['code'] != 10000:
-        content = '失败:' + resp['msg'] + '\n请检查cookie'
+        msg = '失败:' + resp['msg'] + '\n请检查cookie'
     else:
-        content = '签到成功\n月签到天数:' + str(resp['result']['monthDays']) + '\n总积分:' + str(
+        msg = '签到成功\n月签到天数:' + str(resp['result']['monthDays']) + '\n总积分:' + str(
             resp['result']['totalPoints'])
-    QYWX_Notify.send('和彩云签到信息', content)
+    QYWX_Notify.send('和彩云签到信息', msg)
 
 
 # 本地测试
