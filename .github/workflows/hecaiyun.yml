@@ -1,4 +1,4 @@
-name: NGA论坛签到
+name: 和彩云网盘签到
 on:
   push:
     branches: [ master ]
