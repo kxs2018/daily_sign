@@ -72,7 +72,7 @@ def main():
     else:
         msg = '签到成功\n月签到天数:' + str(resp['result']['monthDays']) + '\n总积分:' + str(
             resp['result']['totalPoints'])
-    QYWX_Notify.send('和彩云签到信息', msg)
+    QYWX_Notify().send('和彩云签到信息', msg)
 
 
 # 本地测试
