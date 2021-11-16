@@ -18,8 +18,8 @@ dio = StringIO()
 
 class Uiwow_Signin:
     def __init__(self, username, psw):
-        self.url = 'https://www.uiwow.com/member.php'
-        self.signurl = 'https://www.uiwow.com/plugin.php'
+        self.url = 'https://uiwow.com/member.php'
+        self.signurl = 'https://uiwow.com/plugin.php'
         self.username = username
         self.psw = psw
         self.s = requests.Session()
@@ -41,7 +41,7 @@ class Uiwow_Signin:
         }
         data = {
             'formhash': formhash,
-            'referer': 'https://www.uiwow.com/forum.php',
+            'referer': 'https://uiwow.com/member.php?mod=register',
             'loginfield': 'username',
             'username': self.username,
             'password': self.psw,
@@ -61,21 +61,21 @@ class Uiwow_Signin:
         }
         try:
             req = self.s.get(self.signurl, params=params, headers=headers, verify=False).content.decode('utf-8')
+            formhash = re.findall(r'name="formhash" value="(.*)?"', req)[0]
+            params = {'id': 'dc_signin:sign',
+                      'inajax': 1,
+                      'formhash': formhash,
+                      'signsubmit': 'yes',
+                      'handlekey': 'signin',
+                      'emotid': 1,
+                      'referer': 'https://uiwow.com/',
+                      'content': '开森的我开森的签到一下！'}
+            self.s.post(self.signurl, params=params, headers=headers, verify=False)
         except:
             return
-        formhash = re.findall(r'name="formhash" value="(.*)?"', req)[0]
-        params = {'id': 'dc_signin:sign',
-                  'inajax': 1,
-                  'formhash': formhash,
-                  'signsubmit': 'yes',
-                  'handlekey': 'signin',
-                  'emotid': 1,
-                  'referer': 'https://www.uiwow.com/forum.php',
-                  'content': '开森的我开森的签到一下！'}
-        self.s.post(self.signurl, params=params, headers=headers, verify=False)
 
     def get_stat(self):
-        state_url = 'http://www.uiwow.com/plugin.php?id=dc_signin&action=index'
+        state_url = 'http://uiwow.com/plugin.php?id=dc_signin'
         res = self.s.get(state_url, headers=headers, cookies=self.s.cookies.get_dict(), verify=False)
         html = etree.HTML(res.text)
         sign_div = html.xpath('//*[@class="sign_div"]')[0]
