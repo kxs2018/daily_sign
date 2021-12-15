@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 
 def pojie_signin():
     cookie = os.getenv('PJ_COOKIE')
-    if cookie:        
+    if cookie:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
         options.add_argument('--disable-gpu')
@@ -34,6 +34,7 @@ def pojie_signin():
             wd.find_element(By.CLASS_NAME, r'qq_bind').click()
         except Exception as e:
             print(e)
+        wd.quit()
 
 
 if __name__ == '__main__':
