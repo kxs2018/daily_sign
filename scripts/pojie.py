@@ -1,34 +1,39 @@
-# -- coding: utf-8 --
+# -*- coding: utf-8 -*-
 # 吾爱破解签到
-import requests
-from pyquery import PyQuery as pq
+# Author: kxs2018
+# date：2021/11/18
 import os
-from QYWX_Notify import QYWX_Notify
 import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 
 def pojie_signin():
-    pj_cookie = os.getenv('PJ_COOKIE')
-    if pj_cookie:
-        url1 = 'https://www.52pojie.cn/home.php?mod=task&do=apply&id=2'
-        url2 = 'https://www.52pojie.cn/home.php?mod=task&do=draw&id=2'
-        headers = {'cookie': pj_cookie,
-                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4265.0 Safari/537.36 Edg/87.0.644.4'}
-        requests.get(url1, headers=headers)
-        time.sleep(1)
-        req = requests.get(url2, headers=headers).text
-        doc = pq(req)
-        msg = doc('#messagetext p').text()
-        if '您需要先登录才能继续本操作' in msg:
-            msg = 'cookie失效，请重新获取cookie'
-        else:
-            un = doc('.vwmy a').text()
-            if '不是进行中的任务' in msg:
-                msg = '今日已签到'
-            elif '恭喜' in msg:
-                msg = '签到成功'            
-            msg = un + '\n' + msg
-        QYWX_Notify().send('吾爱破解签到信息', msg)
+    cookie = os.getenv('PJ_COOKIE')
+    if cookie:        
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        options.add_argument("window-size=1920,1080")
+        options.add_argument("--no-sandbox")
+        wd = webdriver.Chrome(options=options)
+        wd.get('https://www.52pojie.cn/forum.php')
+        time.sleep(0.5)
+        cookie = cookie.split(';')
+        for c in cookie:
+            a = c.split('=')
+            if a[0].strip() == 'htVC_2132_auth' or a[0].strip() == 'htVC_2132_saltkey':
+                cookie_dict = {'name': a[0].strip(), 'value': a[1].strip()}
+                wd.add_cookie(cookie_dict)
+        wd.refresh()
+        try:
+            try:
+                wd.find_element(By.XPATH, r'.//div[@id="um"]/p/strong/a')
+            except:
+                raise Exception('获取用户名失败，cookie失效\n')
+            wd.find_element(By.CLASS_NAME, r'qq_bind').click()
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':
